@@ -4,21 +4,21 @@ import Header from "../components/Header";
 import TradeMarkList from "../components/TradeMarkList";
 import { getFilterFromSearchParams } from "@/lib/utils";
 
-export default async function Home({ searchParams }) {
+export default async function Home({ searchParams }:any) {
   const params = await searchParams;
   let trademarkData = null;
-  let error = null;
+
 
   try {
     const filters = await getFilterFromSearchParams(params);
     trademarkData = await getAllTradeMarkData(filters);
 
     if (!trademarkData || !trademarkData.hits) {
-      error = new Error("Invalid data format received from the API");
+      throw new Error("Invalid data format received from the API");
     }
   } catch (err) {
     console.error("Error fetching trademark data:", err);
-    error = err;
+
   }
 
   return (

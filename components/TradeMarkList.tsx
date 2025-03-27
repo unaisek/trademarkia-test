@@ -1,7 +1,7 @@
 import { ChevronRight, RefreshCw,} from "lucide-react";
 import Image from "next/image";
 
-export default async function TradeMarkList({trademarkData}){
+export default async function TradeMarkList({trademarkData}:any){
    const getStatusColor = (status:string) => {
     switch (status) {
       case 'registered':
@@ -63,7 +63,7 @@ export default async function TradeMarkList({trademarkData}){
                   </td>
                 </tr>
               ) : (
-                trademarkData.map((item, index: number) => (
+                trademarkData.map((item:any, index: number) => (
                   <tr key={index} className="hover:bg-gray-100">
                     <td className="p-3 min-w-[150px]">
                       <div className="flex flex-col items-center justify-center">
@@ -127,7 +127,7 @@ export default async function TradeMarkList({trademarkData}){
                         {item._source.mark_description_description}
                       </p>
                       <div className="flex flex-wrap gap-1">
-                        {item._source.class_codes.map((num, idx: number) => (
+                        {item._source.class_codes.map((num:any, idx: number) => (
                           <div
                             key={idx}
                             className="flex items-center bg-gray-100 rounded-full px-2 py-1 text-xs"
