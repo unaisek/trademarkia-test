@@ -58,6 +58,6 @@ export const getAllTradeMarkData = async (filters?: {
     const data = await response.json();
     return data.body;
   } catch (error) {
-    console.log(error);
+    throw new Error(`Error occured while fetching trademarkDara: ${error}`);
   }
 };

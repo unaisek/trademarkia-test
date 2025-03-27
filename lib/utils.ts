@@ -1,36 +1,40 @@
-export function getFilterFromSearchParams(
-  searchParams: Record<string, string | string[] | undefined>
-) {
+export async function getFilterFromSearchParams(searchParams: any) {
   const filters: Record<string, string[] | string> = {};
 
-  if (searchParams.status) {
-    filters.status = Array.isArray(searchParams.status)
-      ? searchParams.status
-      : searchParams.status.split(",");
+  const params = await Promise.resolve(searchParams);
+
+  try {
+ 
+    if (params?.status) {
+      filters.status = Array.isArray(params.status)
+        ? params.status
+        : params.status.split(",");
+    }
+
+    if (params?.owners) {
+      filters.owners = Array.isArray(params.owners)
+        ? params.owners
+        : params.owners.split(",");
+    }
+
+    if (params?.attorneys) {
+      filters.attorneys = Array.isArray(params.attorneys)
+        ? params.attorneys
+        : params.attorneys.split(",");
+    }
+
+    if (params?.law_firms) {
+      filters.law_firms = Array.isArray(params.law_firms)
+        ? params.law_firms
+        : params.law_firms.split(",");
+    }
+
+    if (params?.input_query) {
+      filters.input_query = params.input_query;
+    }
+  } catch (error) {
+    console.error("Error processing search parameters:", error);
   }
 
-
-  if (searchParams.owners) {
-    filters.owners = Array.isArray(searchParams.owners)
-      ? searchParams.owners
-      : searchParams.owners.split(",");
-  }
-
-  if (searchParams.attorneys) {
-    filters.attorneys = Array.isArray(searchParams.attorneys)
-      ? searchParams.attorneys
-      : searchParams.attorneys.split(",");
-  }
-
-  if(searchParams.law_firms){
-     filters.law_firms = Array.isArray(searchParams.law_firms)
-       ? searchParams.law_firms
-       : searchParams.law_firms.split(",");
-  }
-
-  if (searchParams.input_query) {
-    filters.input_query = searchParams.input_query
-  }
-  console.log(filters, "filters");
   return filters;
 }
